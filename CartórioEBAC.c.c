@@ -1,60 +1,20 @@
-#include <stdio.h> //biblioteca de comunicaÁ„o de usu·rio
-#include <stdlib.h> //biblioteca de alocaÁ„o de espaÁo de memÛria
-#include <locale.h> //biblioteca de alocaÁ„o de texto por regi„o
+#include <stdio.h> //biblioteca de comunica√ß√£o de usu√°rio
+#include <stdlib.h> //biblioteca de aloca√ß√£o de espa√ßo de mem√≥ria
+#include <locale.h> //biblioteca de aloca√ß√£o de texto por regi√£o
 #include <string.h> //biblioteca responsavel por cuidar das strings
 
-
-
-int validarCPF(char *cpf)
+int Registro() //fun√ß√£o respons√°vel por cadastrar os usu√°rios no sistema
 {
-    int i, j, digito1 = 0, digito2 = 0;
-    if(strlen(cpf) != 11)
-        return 0;
-    else if((strcmp(cpf,"00000000000") == 0) || (strcmp(cpf,"11111111111") == 0) || (strcmp(cpf,"22222222222") == 0) ||
-            (strcmp(cpf,"33333333333") == 0) || (strcmp(cpf,"44444444444") == 0) || (strcmp(cpf,"55555555555") == 0) ||
-            (strcmp(cpf,"66666666666") == 0) || (strcmp(cpf,"77777777777") == 0) || (strcmp(cpf,"88888888888") == 0) ||
-            (strcmp(cpf,"99999999999") == 0))
-        return 0; ///se o CPF tiver todos os n˙meros iguais ele È inv·lido.
-    else
-    {
-        ///digito 1---------------------------------------------------
-        for(i = 0, j = 10; i < strlen(cpf)-2; i++, j--) ///multiplica os n˙meros de 10 a 2 e soma os resultados dentro de digito1
-            digito1 += (cpf[i]-48) * j;
-        digito1 %= 11;
-        if(digito1 < 2)
-            digito1 = 0;
-        else
-            digito1 = 11 - digito1;
-        if((cpf[9]-48) != digito1)
-            return 0; ///se o digito 1 n„o for o mesmo que o da validaÁ„o CPF È inv·lido
-        else
-        ///digito 2--------------------------------------------------
-        {
-            for(i = 0, j = 11; i < strlen(cpf)-1; i++, j--) ///multiplica os n˙meros de 11 a 2 e soma os resultados dentro de digito2
-                    digito2 += (cpf[i]-48) * j;
-        digito2 %= 11;
-        if(digito2 < 2)
-            digito2 = 0;
-        else
-            digito2 = 11 - digito2;
-        if((cpf[10]-48) != digito2)
-            return 0; ///se o digito 2 n„o for o mesmo que o da validaÁ„o CPF È inv·lido
-        }
-    }
-    return 1;
-
-int Registro() //funÁ„o respons·vel por cadastrar os usu·rios no sistema
-{
-	//inicio da criaÁ„o de vari·veis
+	//inicio da cria√ß√£o de vari√°veis
 	char Arquivo[40];
 	char CPF[40];
 	char Nome[40];
 	char Sobrenome[40];
 	char Cargo[40];
-	//fim da criaÁ„o de vari·veis/string
+	//fim da cria√ß√£o de vari√°veis/string
 	
-	printf("Digite o CPF a ser cadastrado: "); //coletando informaÁ„o do usu·rio
-	scanf("%s", CPF); //%s salva a informaÁ„o/string
+	printf("Digite o CPF a ser cadastrado: "); //coletando informa√ß√£o do usu√°rio
+	scanf("%s", CPF); //%s salva a informa√ß√£o/string
 	
 	strcpy(Arquivo, CPF); //responsavel por os valores das strings
 	
@@ -67,33 +27,33 @@ int Registro() //funÁ„o respons·vel por cadastrar os usu·rios no sistema
 	fprintf(file, ", ");
 	fclose(file);//fecha o arquivo
 	
-	printf("Digite o nome a ser cadastrado: ");//coletando informaÁ„o do usu·rio
-	scanf("%s", Nome);//salvando a informaÁ„o/string
+	printf("Digite o nome a ser cadastrado: ");//coletando informa√ß√£o do usu√°rio
+	scanf("%s", Nome);//salvando a informa√ß√£o/string
 	
 	file = fopen(Arquivo, "a");//abrindo o arquivo
-	fprintf(file, Nome);//salvo o valor da vari·vel
+	fprintf(file, Nome);//salvo o valor da vari√°vel
 	fclose(file);//fechando o arquivo
 	
 	file = fopen(Arquivo, "a");
 	fprintf(file, ", ");
 	fclose(file);
 	
-	printf("Digite o sobrenome a ser cadastrado: ");//coletando informaÁ„o do usu·rio
-	scanf("%s", Sobrenome);//Salvando a informaÁ„o/string
+	printf("Digite o sobrenome a ser cadastrado: ");//coletando informa√ß√£o do usu√°rio
+	scanf("%s", Sobrenome);//Salvando a informa√ß√£o/string
 	
 	file = fopen(Arquivo, "a");//abrindo o arquivo
-	fprintf(file, Sobrenome);//salvo o valor da vari·vel
+	fprintf(file, Sobrenome);//salvo o valor da vari√°vel
 	fclose(file);//fecha o arquivo
 	
 	file = fopen(Arquivo, "a");
 	fprintf(file, ", ");
 	fclose(file);
 	
-	printf("Digite o cargo a ser cadastrado: ");//coletando informaÁ„o do usu·rio
-	scanf("%s", Cargo);//salvando a informaÁ„o/string
+	printf("Digite o cargo a ser cadastrado: ");//coletando informa√ß√£o do usu√°rio
+	scanf("%s", Cargo);//salvando a informa√ß√£o/string
 	
 	file = fopen(Arquivo, "a");//abrindo o arquivo
-	fprintf(file, Cargo);//salvando o valor da vari·vel
+	fprintf(file, Cargo);//salvando o valor da vari√°vel
 	fclose(file);//fechando o arquivo
 	
 	system("pause");
@@ -103,26 +63,26 @@ int Consultar()
 {
 	setlocale(LC_ALL, "Portuguese");
 	
-	//definindo vari·veis
+	//definindo vari√°veis
 	char Conteudo[200];
 	char CPF[40];
 	
-	printf("Digite o CPF a ser consultado: \n");//coletando informaÁıes do usu·rio
-	scanf("%s", CPF);//salvando a informaÁ„o/string com "%s"
+	printf("Digite o CPF a ser consultado: \n");//coletando informa√ß√µes do usu√°rio
+	scanf("%s", CPF);//salvando a informa√ß√£o/string com "%s"
 	
 	system("cls");
 	
 	FILE *file;//criando o arquivo
 	file = fopen(CPF, "r");//abrindo o arquivo, "r" significa ler
 	
-	if(file == NULL) //caso o arquivo n„o exista ou tenha sido deletado
+	if(file == NULL) //caso o arquivo n√£o exista ou tenha sido deletado
 	{
-		printf("N„o foi possivel abrir o arquivo, n„o localizado!\n");
+		printf("N√£o foi possivel abrir o arquivo, n√£o localizado!\n");
 	}
 	
-	while(fgets(Conteudo, 200, file) != NULL)//Mostra as informaÁıes solicitadas
+	while(fgets(Conteudo, 200, file) != NULL)//Mostra as informa√ß√µes solicitadas
 	{
-		printf("\nEssas s„o as informaÁıes do usu·rio: ");
+		printf("\nEssas s√£o as informa√ß√µes do usu√°rio: ");
 		printf("%s", Conteudo);
 		printf("\n\n");
 		
@@ -136,28 +96,28 @@ int Consultar()
 
 int Deletar()
 {
-	//coletando vari·veis
+	//coletando vari√°veis
 	char CPF[40];
 	
 	setlocale(LC_ALL, "Portuguese");
 	
-	printf("Digite o CPF do usu·rio a ser deletado!\n");//coletando informaÁıes do usu·rio
-	scanf("%s", CPF);//salvando as informaÁıes/string com "%s"
+	printf("Digite o CPF do usu√°rio a ser deletado!\n");//coletando informa√ß√µes do usu√°rio
+	scanf("%s", CPF);//salvando as informa√ß√µes/string com "%s"
 	
-	remove(CPF);//funÁ„o de deletar a informaÁ„o
+	remove(CPF);//fun√ß√£o de deletar a informa√ß√£o
 
 	FILE *file;//criando o arquivo
 	file = fopen(CPF, "r");//abrinfo o arquivo e "r" significa ler
 	
 	if(file == CPF)
 	{ 
-		printf("Usu·rio deletado com sucesso!\n");
+		printf("Usu√°rio deletado com sucesso!\n");
 		system("pause");
 	}
 	
 	if(file == NULL)
 	{ 
-		printf("O usu·rio n„o se encontra mais no sistema!\n");
+		printf("O usu√°rio n√£o se encontra mais no sistema!\n");
 		system("pause");
 	}
 	
@@ -180,41 +140,36 @@ int main()
 			
 		setlocale(LC_ALL, "Portuguese"); //definincdo linguagem
 		
-		printf("### CartÛrio da EBAC ###\n\n");//inicio do menu
-		printf("Escolha a opÁ„o desejadado menu:\n\n");
+		printf("### Cart√≥rio da EBAC ###\n\n");//inicio do menu
+		printf("Escolha a op√ß√£o desejadado menu:\n\n");
 		printf("\t1- Registrar nomes:\n");
 		printf("\t2- Consultar nomes:\n");
-		printf("\t3- Deletar nomes:\n\n");	
-		printf("\t4- Validar CPF:\n\n");	
-		printf("OpÁ„o:"); //fim do menu
+		printf("\t3- Deletar nomes:\n\n");		
+		printf("Op√ß√£o:"); //fim do menu
 		
-		scanf("%d", &opcao); //armazenando escolha do usu·rio
+		scanf("%d", &opcao); //armazenando escolha do usu√°rio
 		
-		system("cls");//respons·vel por limpar as telas
+		system("cls");//respons√°vel por limpar as telas
 				
-		switch(opcao) //inicio da seleÁ„o
+		switch(opcao) //inicio da sele√ß√£o
 		{
 			case 1:
-				Registro();//chamada de funÁıes
+				Registro();//chamada de fun√ß√µes
 			break;
 			
 			case 2:
-				Consultar();//chamada de funÁıes
+				Consultar();//chamada de fun√ß√µes
 			break;
 			
 			case 3:
-				Deletar();//chamada de funÁıes
-			break;
-			
-			case 4:
-				validarCPF();//chamada de funÁıes
+				Deletar();//chamada de fun√ß√µes
 			break;
 			
 			default:
-				printf("Est· opÁ„o n„o est· disponÌvel\n");
+				printf("Est√° op√ß√£o n√£o est√° dispon√≠vel\n");
 				system("pause");
 			break;
-		}  //fim da seleÁ„o	
+		}  //fim da sele√ß√£o	
 		
 	}	
 }
